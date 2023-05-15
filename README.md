@@ -16,10 +16,8 @@ https://vuejs.org/guide/essentials/lifecycle.html
 
 ### Работа с API (axios)
 
-npm i axios - устанавливаем в проект
-
-Примеры применения в документации
-
-Пишем функцию обертку [makeRequest](src/utils/makeRequest.ts)
-
-В компоненте [ToDo.vue](src/pages/ToDo.vue) есть пример использования
+1) npm i axios - устанавливаем в проект
+2) [Примеры применения](src/examples/axiosExamples.ts)
+3) Так же посмотрите и в доке
+4) Пишем функцию обертку [makeRequest](src/utils/makeRequest.ts)
+5) В компоненте [ToDo.vue](src/pages/ToDo.vue) есть пример использования
