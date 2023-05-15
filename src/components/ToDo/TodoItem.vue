@@ -1,19 +1,22 @@
 <template>
   <div class="item">
-    <p>{{ text }}</p>
-    <el-button @click="emit('delete', text)" type="danger">Удалить</el-button>
+    <p @click="emit('push')" style="cursor: pointer">{{ todo.title }}</p>
+    <el-button @click="emit('delete', todo)" type="danger">Удалить</el-button>
   </div>
 </template>
 
 <script lang="ts" setup>
+import { Todo } from '../../types/Todo'
+
 interface Props {
-  text: string
+  todo: Todo
 }
 
-const { text } = defineProps<Props>()
+const { todo } = defineProps<Props>()
 
 const emit = defineEmits<{
-  (e: 'delete', text: string): void
+  (e: 'delete', todo: Todo): void
+  (e: 'push'): void
 }>()
 </script>
 

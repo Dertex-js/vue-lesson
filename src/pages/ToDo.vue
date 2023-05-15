@@ -12,8 +12,9 @@
         <TodoItem
           v-for="(todo, index) in todos"
           :key="index"
-          :text="todo"
+          :todo="todo"
           @delete="handleDelete"
+          @push="router.push(`/todo-detail/${todo.id}`)"
         />
       </div>
     </el-scrollbar>
@@ -23,20 +24,35 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import TodoItem from '../components/ToDo/TodoItem.vue'
+import router from '../router'
+import { Todo } from '../types/Todo'
+import makeRequest from '../utils/makeRequest'
 
 const text = ref('')
-const todos = ref<string[]>([])
+const todos = ref<Todo[]>([])
 
 const handleSave = () => {
   if (text.value !== '') {
-    todos.value.push(text.value)
+    todos.value.push({
+      userId: 1,
+      id: Math.random(),
+      completed: false,
+      title: text.value
+    })
     text.value = ''
   }
 }
 
-const handleDelete = (text: string): void => {
-  todos.value.splice(todos.value.findIndex((el) => el === text), 1)
+const handleDelete = (todo: Todo): void => {
+  todos.value.splice(todos.value.findIndex((el) => el === todo), 1)
 }
+
+makeRequest({
+  method: "get",
+  url: "https://jsonplaceholder.typicode.com/todos",
+}).then(({data}) => {
+  todos.value = data
+})
 </script>
 
 <style lang="scss" scoped>
