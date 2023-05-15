@@ -7,9 +7,16 @@
         <el-button @click="handleSave">Сохранить</el-button>
       </div>
     </div>
-    <div v-if="todos.length" class="main container">
-      <TodoItem v-for="(todo, index) in todos" :key="index" :text="todo" @delete="handleDelete"/>
-    </div>
+    <el-scrollbar v-if="todos.length"  class="container">
+      <div class="main">
+        <TodoItem
+          v-for="(todo, index) in todos"
+          :key="index"
+          :text="todo"
+          @delete="handleDelete"
+        />
+      </div>
+    </el-scrollbar>
   </div>
 </template>
 
@@ -62,5 +69,11 @@ const handleDelete = (text: string): void => {
     justify-content: space-between;
     gap: 10px;
   }
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 </style>
