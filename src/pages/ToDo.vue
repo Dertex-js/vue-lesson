@@ -47,11 +47,11 @@ const handleDelete = (todo: Todo): void => {
   todos.value.splice(todos.value.findIndex((el) => el === todo), 1)
 }
 
-makeRequest({
-  method: "get",
-  url: "https://jsonplaceholder.typicode.com/todos",
-}).then(({data}) => {
-  todos.value = data
+makeRequest({  // Используем функцию-обертку
+  method: "get",                              // Указываем метод
+  url: "https://jsonplaceholder.typicode.com/todos",  // Указываем путь
+}).then(({data}) => {                                 // После запроса нам приходит объект из которого мы достаем поле data
+  todos.value = data                                  // И присваиваем его к нашим тудушкам
 })
 </script>
 

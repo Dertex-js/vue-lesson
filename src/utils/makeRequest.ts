@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export interface Request {
+export interface Request {  // Пишем интерфейс для объекта аргумента функции
   url: string
   method?: string
   headers?: never,
@@ -16,6 +16,6 @@ const makeRequest = ({ url = '/', method = 'get', data, params, headers }: Reque
     headers,
     params,
     data
-  })
+  })           // Axios делает запрос с нашими аргументами
 
 export default makeRequest
