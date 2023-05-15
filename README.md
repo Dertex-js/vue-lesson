@@ -1,18 +1,25 @@
-# Vue 3 + TypeScript + Vite
+### Жизненный цикл компонента
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+1) инициализация событий и жизненного цикла - стартовая точка
+2) Vue считывает весь код компонента, инициализирует все, создает переменные итд (на этом этапе создан компонент и готов вмонтироваться в DOM)
+3) хук onBeforeMount - можем вторгнуться в процес до маунта (принимает функцию колбэк)
+4) Происходит маунт компонента в дом дерево приложения
+5) onMounted - можем выполнить код СРАЗУ ПОСЛЕ того, как компонент отрендерился
+6) меняется состояние приложения (прим. переменная counter изменилась)
+7) onBeforeUpdate - можем вторгнуться в процес до перерендера
+8) перерендер
+9) onUpdated - можем выполнить код СРАЗУ ПОСЛЕ того, как компонент перерендерился
+10) компонент нам больше не нужен (прим. мы скрыли его v-if) onBeforeUnmount - можем вторгнуться в процес до анмаунта
+11) onUnmounted - после уничтожения компонента
 
-## Recommended IDE Setup
+https://vuejs.org/guide/essentials/lifecycle.html
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+### Работа с API (axios)
 
-## Type Support For `.vue` Imports in TS
+npm i axios - устанавливаем в проект
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+Примеры применения в документации
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+Пишем функцию обертку [makeRequest](src/utils/makeRequest.ts)
 
-1. Disable the built-in TypeScript Extension
-   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+В компоненте [ToDo.vue](src/pages/ToDo.vue) есть пример использования
