@@ -7,10 +7,10 @@
         <el-button @click="handleSave">Сохранить</el-button>
       </div>
     </div>
-    <el-scrollbar v-if="todos.length"  class="container">
+    <el-scrollbar v-if="todoStore.todos.length"  class="container">
       <div class="main">
         <TodoItem
-          v-for="(todo, index) in todos"
+          v-for="(todo, index) in todoStore.todos"
           :key="index"
           :todo="todo"
           @delete="handleDelete"
@@ -25,15 +25,17 @@
 import { ref } from 'vue'
 import TodoItem from '../components/ToDo/TodoItem.vue'
 import router from '../router'
+import { useTodoStore } from '../store/todo-store'
 import { Todo } from '../types/Todo'
-import makeRequest from '../utils/makeRequest'
 
 const text = ref('')
-const todos = ref<Todo[]>([])
+
+const todoStore = useTodoStore()
+todoStore.fetchTodos()
 
 const handleSave = () => {
   if (text.value !== '') {
-    todos.value.push({
+    todoStore.todos.push({
       userId: 1,
       id: Math.random(),
       completed: false,
@@ -44,15 +46,10 @@ const handleSave = () => {
 }
 
 const handleDelete = (todo: Todo): void => {
-  todos.value.splice(todos.value.findIndex((el) => el === todo), 1)
+  todoStore.todos.splice(todoStore.todos.findIndex((el) => el === todo), 1)
 }
 
-makeRequest({  // Используем функцию-обертку
-  method: "get",                              // Указываем метод
-  url: "https://jsonplaceholder.typicode.com/todos",  // Указываем путь
-}).then(({data}) => {                                 // После запроса нам приходит объект из которого мы достаем поле data
-  todos.value = data                                  // И присваиваем его к нашим тудушкам
-})
+
 </script>
 
 <style lang="scss" scoped>
